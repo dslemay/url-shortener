@@ -1,0 +1,22 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dslemay/url-shortener.git"
+  },
+  "author": "Daniel Lemay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dslemay/url-shortener/issues"
+  },
+  "homepage": "https://github.com/dslemay/url-shortener#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
