@@ -1,4 +1,5 @@
 var express = require('express'),
+    validUrl = require('valid-url'),
     app = express();
 
 function isValidUrl(userInput) {
