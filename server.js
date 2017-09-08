@@ -3,21 +3,36 @@ var express = require('express'),
     app = express();
 
 function isValidUrl(userInput) {
-  var regex = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._]/i;
-  return regex.test(userInput);
+  if (validUrl.isWebUri(userInput)) {
+    return userInput;
+  } else {
+    return undefined;
+  }
 }
 
-app.use('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 8080);
 app.use(express.static(__dirname));
 
-app.get('/new/:urlRequest', function(req, res) {
+app.get(/^\/new\/(.+)/, function(req, res) {
   req.on('error', function(err) {
     console.log(err);
   });
-  if (isValidUrl(req.params.urlRequest)) {
+  var urlReq = req.params[0],
+      urlObj = {};
+
+  if (/^www/.test(urlReq)) {
+    urlReq = 'http://' + urlReq;
+  }
+
+  if (isValidUrl(urlReq) !== undefined) {
     // shorten url
+    res.send(urlReq + " is a valid url.");
   } else {
-    res.send(req.params.urlRequest + " is not a valid url.");
+    urlObj = {
+      'original_url': urlReq,
+      'short_url': 'ERR: Original url was not a valid url'
+    }
+    res.send(urlObj);
   }
 });
 
