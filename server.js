@@ -29,16 +29,17 @@ app.get(/^\/new\/(.+)/, function(req, res) {
   if (isValidUrl(urlReq) !== undefined) {
     // shorten url
 
-    urlObj = getUniqueId(urlReq, baseUrl);
-    res.send(JSON.stringify(urlObj));
-    // res.send(urlReq + " is a valid url.");
+    getUniqueId(urlReq, baseUrl).then(function(data) {
+      urlObj = data;
+      res.send(urlObj);
+    });
   } else {
     urlObj = {
       'original_url': urlReq,
       'short_url': 'ERR: Original url was not a valid url'
     }
+    res.send(urlObj);
   }
-  // res.send(urlObj);
 });
 
 app.get('/:shortUrl', function(req, res) {
